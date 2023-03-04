@@ -83,14 +83,26 @@ const ContinueGameIntentHandler = {
 
 const EndGameIntentHandler = {
   canHandle(handlerInput) {
+    const request = handlerInput.requestEnvelope.request;
     return (
-      Alexa.getRequestType(handlerInput.requestEnvelope) === "IntentRequest" &&
-      Alexa.getIntentName(handlerInput.requestEnvelope) === "EndGameIntent"
+      request.type === "IntentRequest" &&
+      request.intent.name === "EndGameIntent"
     );
   },
   handle(handlerInput) {
-    const speechOutput = "Thanks for playing Dice Roll! Goodbye!";
-    return handlerInput.responseBuilder.speak(speechOutput).getResponse();
+    const speechText = "Do you want to add your name to the high score list?";
+
+    // set session attributes
+    const sessionAttributes =
+      handlerInput.attributesManager.getSessionAttributes();
+    sessionAttributes.score = 0;
+    sessionAttributes.addingScore = true;
+    handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
+
+    return handlerInput.responseBuilder
+      .speak(speechText)
+      .reprompt(speechText)
+      .getResponse();
   },
 };
 
