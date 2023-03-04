@@ -1,0 +1,83 @@
+{
+    "interactionModel": {
+      "languageModel": {
+        "invocationName": "dice roller",
+        "intents": [
+          {
+            "name": "RollDiceIntent",
+            "samples": [
+              "roll the dice",
+              "roll dice",
+              "throw dice"
+            ]
+          },
+          {
+            "name": "ContinueGameIntent",
+            "samples": [
+              "continue",
+              "keep going",
+              "roll again"
+            ],
+            "slots": [
+              {
+                "name": "score",
+                "type": "AMAZON.NUMBER"
+              }
+            ]
+          },
+          {
+            "name": "EndGameIntent",
+            "samples": [
+              "end game",
+              "stop playing",
+              "quit"
+            ]
+          },
+          {
+            "name": "AddScoreIntent",
+            "samples": [
+              "yes",
+              "add my score",
+              "add me to the high score list"
+            ],
+            "slots": [
+              {
+                "name": "PlayerName",
+                "type": "AMAZON.US_FIRST_NAME"
+              }
+            ]
+          },
+          {
+            "name": "HighScoresIntent",
+            "samples": [
+              "top scores",
+              "high scores",
+              "leaderboard"
+            ]
+          },
+          {
+            "name": "AMAZON.HelpIntent",
+            "samples": []
+          },
+          {
+            "name": "AMAZON.StopIntent",
+            "samples": []
+          },
+          {
+            "name": "AMAZON.CancelIntent",
+            "samples": []
+          },
+          {
+            "name": "AMAZON.FallbackIntent",
+            "samples": []
+          },
+          {
+            "name": "SessionEndedRequest",
+            "samples": []
+          }
+        ],
+        "types": []
+      }
+    }
+  }
+  
