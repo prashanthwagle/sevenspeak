@@ -103,9 +103,10 @@ const AddScoreIntentHandler = {
     );
   },
   handle(handlerInput) {
+    const name = handlerInput.requestEnvelope.request.intent.slots.name.value;
     const score = handlerInput.attributesManager.getSessionAttributes().score;
-    const speechOutput = `Thanks for playing. Your score of ${score} has been added to the high scores list.`;
-    //TODO: ADD CODE LATER
+    const speechOutput = `Thanks for playing, ${name}. Your score of ${score} has been added to the high scores list.`;
+
     return handlerInput.responseBuilder.speak(speechOutput).getResponse();
   },
 };
