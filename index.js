@@ -5,8 +5,15 @@ const LaunchRequestHandler = {
     return handlerInput.requestEnvelope.request.type === "LaunchRequest";
   },
   handle(handlerInput) {
-    const speechText = "Welcome";
+    const speechText =
+      "Welcome to Dice Roll game. You can say roll dice to start the game or ask for the top 10 high scores. What would you like to do?";
+    const attributesManager = handlerInput.attributesManager;
+    const sessionAttributes = attributesManager.getSessionAttributes();
 
+    //INIT
+    if (!sessionAttributes.score) {
+      sessionAttributes.score = 0;
+    }
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechText)
