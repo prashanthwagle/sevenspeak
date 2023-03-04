@@ -29,20 +29,23 @@ const RollDiceIntentHandler = {
     );
   },
   handle(handlerInput) {
+    const score =
+      handlerInput.attributesManager.getSessionAttributes().score || 0;
     const roll = Math.floor(Math.random() * 6) + 1;
-    const attributesManager = handlerInput.attributesManager;
-    const sessionAttributes = attributesManager.getSessionAttributes();
+    let speechText = `You rolled a ${roll}. `;
     if (roll === 1) {
-      sessionAttributes.score = 0;
+      speechText += `Your score is reset to 0. `;
+      handlerInput.attributesManager.setSessionAttributes({ score: 0 });
     } else {
-      sessionAttributes.score += roll;
+      const newScore = score + roll;
+      speechText += `Your current score is ${newScore}. `;
+      handlerInput.attributesManager.setSessionAttributes({ score: newScore });
     }
-
-    const speechText = `You rolled a ${roll}. Your current score is ${sessionAttributes.score}. Do you want to continue or end the game?`;
+    speechText += `Do you want to continue?`;
 
     return handlerInput.responseBuilder
       .speak(speechText)
-      .reprompt("Do you want to continue or end the game?")
+      .reprompt(speechText)
       .getResponse();
   },
 };
