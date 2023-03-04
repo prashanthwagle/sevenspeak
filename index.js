@@ -48,37 +48,26 @@ const ContinueGameIntentHandler = {
     );
   },
   handle(handlerInput) {
-    const attributesManager = handlerInput.attributesManager;
-    const sessionAttributes = attributesManager.getSessionAttributes();
+    const sessionAttributes =
+      handlerInput.attributesManager.getSessionAttributes();
 
-    const response =
-      handlerInput.requestEnvelope.request.intent.slots.continue.value;
-    if (response === "continue") {
-      const speechText = "Great! Let's roll the dice again.";
+    let roll = Math.floor(Math.random() * 6) + 1;
+    let score = sessionAttributes.score + roll;
 
-      return handlerInput.responseBuilder
-        .speak(speechText)
-        .reprompt("Roll the dice by saying roll.")
-        .getResponse();
-    } else if (response === "end" || response === "stop") {
-      const speechText =
-        "Cool, lets end the game. Do you want to add yourself to the high score list?";
+    let speechText = `You rolled a ${roll}. Your score is now ${score}.`;
 
-      sessionAttributes.gameInProgress = false;
-
-      return handlerInput.responseBuilder
-        .speak(speechText)
-        .reprompt(speechText)
-        .getResponse();
-    } else {
-      const speechText =
-        "Sorry, I didn't understand your response. Do you want to continue or end the game?";
-
-      return handlerInput.responseBuilder
-        .speak(speechText)
-        .reprompt("Do you want to continue or end the game?")
-        .getResponse();
+    if (roll === 1) {
+      speechText = `You rolled a ${roll}. Your score is reset to 0. `;
+      score = 0;
     }
+
+    sessionAttributes.score = score;
+    handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
+
+    return handlerInput.responseBuilder
+      .speak(speechText)
+      .reprompt(speechText)
+      .getResponse();
   },
 };
 
