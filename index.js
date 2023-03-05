@@ -57,24 +57,6 @@ const RollDiceIntentHandler = {
 
     handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
     return ContinueGameIntentHandler.handle(handlerInput, true);
-
-    // const score = sessionAttributes.score || 0;
-    // const roll = Math.floor(Math.random() * 6) + 1;
-    // let speechText = `You rolled a ${roll}. `;
-    // if (roll === 1) {
-    //   speechText += `Your score is reset to 0. `;
-    //   handlerInput.attributesManager.setSessionAttributes({ score: 0 });
-    // } else {
-    //   const newScore = score + roll;
-    //   speechText += `Your current score is ${newScore}. `;
-    //   handlerInput.attributesManager.setSessionAttributes({ score: newScore });
-    // }
-    // speechText += `Do you want to continue?`;
-
-    // return handlerInput.responseBuilder
-    //   .speak(speechText)
-    //   .reprompt("Do you want to continue?")
-    //   .getResponse();
   },
 };
 const ContinueGameIntentHandler = {
