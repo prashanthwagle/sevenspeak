@@ -30,7 +30,6 @@ const LaunchRequestHandler = {
       .getResponse();
   },
 };
-
 const RollDiceIntentHandler = {
   canHandle(handlerInput) {
     return (
@@ -123,23 +122,38 @@ const EndGameIntentHandler = {
       request.intent.name === "EndGameIntent"
     );
   },
-  handle(handlerInput) {
-    const speechText = "Do you want to add your name to the high score list?";
+  handle(handlerInput, chainedIntent = false) {
+    if (chainedIntent) {
+      sessionAttributes.score = 0;
+      sessionAttributes.highScore = sessionAttributes.score;
+      handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
+      speechText =
+        "Do you want to add your name to the high score list? If yes, please say 'add to high score'. Else say 'do not add to high score'";
+      return handlerInput.responseBuilder
+        .speak(speechText)
+        .reprompt(speechText)
+        .getResponse();
+    }
 
-    // set session attributes
+    const addToHighScore =
+      handlerInput.requestEnvelope.request.intent.slots["AddToHighScore"].value;
+
+    console.log("ADDTOHS", addToHighScore);
+
     const sessionAttributes =
       handlerInput.attributesManager.getSessionAttributes();
-    sessionAttributes.score = 0;
-    sessionAttributes.addingScore = true;
-    handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
+    let speechText;
+    const name = handlerInput.requestEnvelope.request.intent.slots.name.value;
 
-    return handlerInput.responseBuilder
-      .speak(speechText)
-      .reprompt(speechText)
-      .getResponse();
+    if (addToHighScore == "addtohs") {
+      const score = sessionAttributes.highScore;
+      speechText = `Thanks for playing, ${name} . Your score of ${score} has been added to the high scores list.`;
+    } else {
+      speechText = `Thanks for playing. Hope we see you again!`;
+    }
+    return handlerInput.responseBuilder.speak(speechText).getResponse();
   },
 };
-
 const AddScoreIntentHandler = {
   canHandle(handlerInput) {
     return (
@@ -275,7 +289,6 @@ exports.handler = async function (event, context) {
         RollDiceIntentHandler,
         ContinueGameIntentHandler,
         EndGameIntentHandler,
-        AddScoreIntentHandler,
         HighScoresIntentHandler,
         AMAZON_HelpIntentHandler,
         AMAZON_StopIntentHandler,
