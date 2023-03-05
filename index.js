@@ -105,6 +105,7 @@ const ContinueGameIntentHandler = {
     return EndGameIntentHandler.handle(handlerInput, true);
   },
 };
+
 const EndGameIntentHandler = {
   canHandle(handlerInput) {
     const request = handlerInput.requestEnvelope.request;
@@ -114,6 +115,9 @@ const EndGameIntentHandler = {
     );
   },
   handle(handlerInput, chainedIntent = false) {
+    const sessionAttributes =
+      handlerInput.attributesManager.getSessionAttributes();
+    let speechText;
     if (chainedIntent) {
       sessionAttributes.score = 0;
       sessionAttributes.highScore = sessionAttributes.score;
@@ -126,14 +130,13 @@ const EndGameIntentHandler = {
         .getResponse();
     }
 
+    console.log("EGH", handlerInput.requestEnvelope.request.intent.slots);
+
     const addToHighScore =
       handlerInput.requestEnvelope.request.intent.slots["AddToHighScore"].value;
 
     console.log("ADDTOHS", addToHighScore);
 
-    const sessionAttributes =
-      handlerInput.attributesManager.getSessionAttributes();
-    let speechText;
     const name = handlerInput.requestEnvelope.request.intent.slots.name.value;
 
     if (addToHighScore == "addtohs") {
