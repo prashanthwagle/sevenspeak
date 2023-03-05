@@ -83,30 +83,38 @@ const ContinueGameIntentHandler = {
       handlerInput.requestEnvelope.request.intent.name === "ContinueGameIntent"
     );
   },
-  handle(handlerInput) {
+  handle(handlerInput, chainedIntent = false) {
+    const continuePlaying =
+      handlerInput.requestEnvelope.request.intent.slots["YesOrNo"].value;
     const sessionAttributes =
       handlerInput.attributesManager.getSessionAttributes();
+    if (continuePlaying == "yes" || chainedIntent === true) {
+      let roll = Math.floor(Math.random() * 6) + 1;
+      let score = sessionAttributes.score + roll;
 
-    let roll = Math.floor(Math.random() * 6) + 1;
-    let score = sessionAttributes.score + roll;
+      let speechText = `You rolled a ${roll}. Your score is now ${score}. Do you want to continue?`;
 
-    let speechText = `You rolled a ${roll}. Your score is now ${score}.`;
+      if (roll === 1) {
+        speechText = `You rolled a ${roll}. Your score is reset to 0. If you want to continue, say yes, else say no`;
+        score = 0;
+      }
 
-    if (roll === 1) {
-      speechText = `You rolled a ${roll}. Your score is reset to 0. `;
-      score = 0;
+      sessionAttributes.score = score;
+      handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
+      return handlerInput.responseBuilder
+        .speak(speechText)
+        .reprompt("Do you want to continue playing?")
+        .getResponse();
     }
-
-    sessionAttributes.score = score;
+    console.log("Do not wanna continue");
+    if (sessionAttributes.gameOver) {
+      return EndGameIntentHandler.handle(handlerInput, false);
+    }
+    sessionAttributes.gameOver = true;
     handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
-
-    return handlerInput.responseBuilder
-      .speak(speechText)
-      .reprompt(speechText)
-      .getResponse();
+    return EndGameIntentHandler.handle(handlerInput, true);
   },
 };
-
 const EndGameIntentHandler = {
   canHandle(handlerInput) {
     const request = handlerInput.requestEnvelope.request;
