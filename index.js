@@ -97,10 +97,9 @@ const ContinueGameIntentHandler = {
 
 const EndGameIntentHandler = {
   canHandle(handlerInput) {
-    const request = handlerInput.requestEnvelope.request;
     return (
-      request.type === "IntentRequest" &&
-      request.intent.name === "EndGameIntent"
+      handlerInput.requestEnvelope.request.type === "IntentRequest" &&
+      handlerInput.requestEnvelope.request.intent.name === "EndGameIntent"
     );
   },
   handle(handlerInput, chainedIntent = false) {
@@ -118,23 +117,6 @@ const EndGameIntentHandler = {
         .reprompt(speechText)
         .getResponse();
     }
-
-    console.log("EGH", handlerInput.requestEnvelope.request.intent.slots);
-
-    const addToHighScore =
-      handlerInput.requestEnvelope.request.intent.slots["AddToHighScore"].value;
-
-    console.log("ADDTOHS", addToHighScore);
-
-    const name = handlerInput.requestEnvelope.request.intent.slots.name.value;
-
-    if (addToHighScore == "addtohs") {
-      const score = sessionAttributes.highScore;
-      speechText = `Thanks for playing, ${name} . Your score of ${score} has been added to the high scores list.`;
-    } else {
-      speechText = `Thanks for playing. Hope we see you again!`;
-    }
-    return handlerInput.responseBuilder.speak(speechText).getResponse();
   },
 };
 
@@ -146,10 +128,23 @@ const AddScoreIntentHandler = {
     );
   },
   handle(handlerInput) {
-    const name = handlerInput.requestEnvelope.request.intent.slots.name.value;
-    const score = handlerInput.attributesManager.getSessionAttributes().score;
-    const speechOutput = `Thanks for playing, ${name}. Your score of ${score} has been added to the high scores list.`;
+    let speechOutput;
+    console.log(handlerInput.requestEnvelope.request.intent.slots);
+    console.log(
+      handlerInput.requestEnvelope.request.intent.slots["AddToHighScore"].value
+    );
+    const addToHighScore =
+      handlerInput.requestEnvelope.request.intent.slots["AddToHighScore"].value;
 
+    if (addToHighScore == "do") {
+      const name = handlerInput.requestEnvelope.request.intent.slots.name.value;
+      const score =
+        handlerInput.attributesManager.getSessionAttributes().highScore;
+      speechOutput = `Thanks for playing, ${name}. Your score of ${score} has been added to the high scores list.`;
+      // code to add name and score to high scores list in database goes here
+    } else {
+      speechOutput = "Thanks for playing. Hope I see you again!";
+    }
     return handlerInput.responseBuilder.speak(speechOutput).getResponse();
   },
 };
