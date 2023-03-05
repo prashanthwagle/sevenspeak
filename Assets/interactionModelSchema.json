@@ -1,136 +1,143 @@
 {
   "interactionModel": {
-    "languageModel": {
-      "invocationName": "dice roller",
-      "intents": [
-        {
-          "name": "RollDiceIntent",
-          "samples": [
-            "roll the dice",
-            "roll dice",
-            "throw dice",
-            "my name is {name}",
-            "I am {name}",
-            "{name}",
-            "I like to be a guest",
-            "guest"
-          ],
-          "slots": [
-            {
-              "name": "AddToHighScore",
-              "type": "AddToHighScore" 
-            },
-            {
-              "name": "name",
-              "type": "AMAZON.US_FIRST_NAME"
-            }
-          ]
-        },
-        {
-          "name": "ContinueGameIntent",
-          "samples": [
-            "continue",
-            "keep going",
-            "roll again",
-            "{YesOrNo}",
-            "add to high score"
-          ],
-          "slots": [
-            {
-              "name": "score",
-              "type": "AMAZON.NUMBER"
-            },
-            {
-              "name": "YesOrNo",
-              "type": "YesOrNo" 
-            }
-          ]
-        },
-        {
-          "name": "EndGameIntentHandler",
-          "samples": [
-            "end game",
-            "stop playing",
-            "quit"
-          ],
-          "slots": [
-            {
-              "name": "AddToHighScore",
-              "type": "AddToHighScore" 
-            }
-          ]
-        },
-        {
-          "name": "HighScoresIntent",
-          "samples": [
-            "top scores",
-            "high scores",
-            "leaderboard"
-          ]
-        },
-        {
-          "name": "AMAZON.HelpIntent",
-          "samples": []
-        },
-        {
-          "name": "AMAZON.StopIntent",
-          "samples": []
-        },
-        {
-          "name": "AMAZON.CancelIntent",
-          "samples": []
-        },
-        {
-          "name": "AMAZON.FallbackIntent",
-          "samples": []
-        },
-        {
-          "name": "SessionEndedRequest",
-          "samples": []
-        }
-      ],
-      "types": [
-          {
-            "name": "YesOrNo",
-            "values": [
+      "languageModel": {
+          "invocationName": "dice roller",
+          "intents": [
               {
-                "id": "yes",
-                "name": {
-                  "value": "yes",
-                  "synonyms": ["yeah"]
-                }
+                  "name": "RollDiceIntent",
+                  "slots": [
+                      {
+                          "name": "AddToHighScore",
+                          "type": "AddToHighScore"
+                      },
+                      {
+                          "name": "name",
+                          "type": "AMAZON.US_FIRST_NAME"
+                      }
+                  ],
+                  "samples": [
+                      "roll the dice",
+                      "roll dice",
+                      "throw dice",
+                      "my name is {name}",
+                      "I am {name}",
+                      "Woohoo I am {name}"
+                  ]
               },
               {
-                "id": "no",
-                "name": {
-                  "value": "no",
-                  "synonyms": ["nope"]
-                }
-              }
-
-            ]
-          },
-          {
-            "name": "AddToHighScore",
-            "values": [
-              {
-                "id": "yes",
-                "name": {
-                  "value": "addtohs",
-                  "synonyms": ["add to high scores", "add to high score"]
-                }
+                  "name": "ContinueGameIntent",
+                  "slots": [],
+                  "samples": [
+                      "continue",
+                      "keep going",
+                      "roll again"
+                  ]
               },
               {
-                "id": "no",
-                "name": {
-                  "value": "dontaddtohs",
-                  "synonyms": ["don't add to high scores", "do not add to high scores", "do not add to high score"]
-                }
+                  "name": "EndGameIntent",
+                  "slots": [],
+                  "samples": [
+                      "end game",
+                      "stop playing",
+                      "quit"
+                  ]
+              },
+              {
+                  "name": "AddScoreIntent",
+                  "slots": [
+                      {
+                          "name": "PlayerName",
+                          "type": "AMAZON.US_FIRST_NAME"
+                      },
+                      {
+                          "name": "AddToHighScore",
+                          "type": "AddToHighScore"
+                      }
+                  ],
+                  "samples": [
+                      "{AddToHighScore} add my score",
+                      "{AddToHighScore} add me to the high score list"
+                  ]
+              },
+              {
+                  "name": "HighScoresIntent",
+                  "slots": [],
+                  "samples": [
+                      "top scores",
+                      "high scores",
+                      "leaderboard"
+                  ]
+              },
+              {
+                  "name": "AMAZON.HelpIntent",
+                  "samples": []
+              },
+              {
+                  "name": "AMAZON.StopIntent",
+                  "samples": []
+              },
+              {
+                  "name": "AMAZON.CancelIntent",
+                  "samples": []
+              },
+              {
+                  "name": "AMAZON.FallbackIntent",
+                  "samples": []
+              },
+              {
+                  "name": "SessionEndedRequest",
+                  "slots": [],
+                  "samples": []
               }
-
-            ]
-          }
-        ]
-    }
+          ],
+          "types": [
+              {
+                  "name": "YesOrNo",
+                  "values": [
+                      {
+                          "id": "yes",
+                          "name": {
+                              "value": "yes",
+                              "synonyms": [
+                                  "yeah"
+                              ]
+                          }
+                      },
+                      {
+                          "id": "no",
+                          "name": {
+                              "value": "no",
+                              "synonyms": [
+                                  "nope"
+                              ]
+                          }
+                      }
+                  ]
+              },
+              {
+                  "name": "AddToHighScore",
+                  "values": [
+                      {
+                          "id": "do",
+                          "name": {
+                              "value": "do",
+                              "synonyms": [
+                                  "do"
+                              ]
+                          }
+                      },
+                      {
+                          "id": "dont",
+                          "name": {
+                              "value": "dont",
+                              "synonyms": [
+                                  "do not"
+                              ]
+                          }
+                      }
+                  ]
+              }
+          ]
+      }
   }
 }
