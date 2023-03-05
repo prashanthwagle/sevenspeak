@@ -39,24 +39,40 @@ const RollDiceIntentHandler = {
     );
   },
   handle(handlerInput) {
-    const score =
-      handlerInput.attributesManager.getSessionAttributes().score || 0;
-    const roll = Math.floor(Math.random() * 6) + 1;
-    let speechText = `You rolled a ${roll}. `;
-    if (roll === 1) {
-      speechText += `Your score is reset to 0. `;
-      handlerInput.attributesManager.setSessionAttributes({ score: 0 });
-    } else {
-      const newScore = score + roll;
-      speechText += `Your current score is ${newScore}. `;
-      handlerInput.attributesManager.setSessionAttributes({ score: newScore });
+    const sessionAttributes =
+      handlerInput.attributesManager.getSessionAttributes();
+    if (!sessionAttributes.name) {
+      speechText =
+        "I love playing this game. What is your name? Else if you like to be anonymous, say guest";
+      return handlerInput.responseBuilder
+        .speak(speechText)
+        .reprompt(speechText)
+        .getResponse();
     }
-    speechText += `Do you want to continue?`;
 
-    return handlerInput.responseBuilder
-      .speak(speechText)
-      .reprompt(speechText)
-      .getResponse();
+    const name = handlerInput.requestEnvelope.request.intent.slots.name.value;
+    if (name) sessionAttributes.name = name;
+    else sessionAttributes.name = "guest";
+    handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
+    return ContinueGameIntentHandler.handle(handlerInput, true);
+
+    // const score = sessionAttributes.score || 0;
+    // const roll = Math.floor(Math.random() * 6) + 1;
+    // let speechText = `You rolled a ${roll}. `;
+    // if (roll === 1) {
+    //   speechText += `Your score is reset to 0. `;
+    //   handlerInput.attributesManager.setSessionAttributes({ score: 0 });
+    // } else {
+    //   const newScore = score + roll;
+    //   speechText += `Your current score is ${newScore}. `;
+    //   handlerInput.attributesManager.setSessionAttributes({ score: newScore });
+    // }
+    // speechText += `Do you want to continue?`;
+
+    // return handlerInput.responseBuilder
+    //   .speak(speechText)
+    //   .reprompt("Do you want to continue?")
+    //   .getResponse();
   },
 };
 
