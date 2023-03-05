@@ -59,6 +59,7 @@ const RollDiceIntentHandler = {
     return ContinueGameIntentHandler.handle(handlerInput, true);
   },
 };
+
 const ContinueGameIntentHandler = {
   canHandle(handlerInput) {
     return (
@@ -67,8 +68,11 @@ const ContinueGameIntentHandler = {
     );
   },
   handle(handlerInput, chainedIntent = false) {
-    const continuePlaying =
-      handlerInput.requestEnvelope.request.intent.slots["YesOrNo"].value;
+    const continuePlaying = handlerInput.requestEnvelope.request.intent.slots[
+      "YesOrNo"
+    ]
+      ? handlerInput.requestEnvelope.request.intent.slots["YesOrNo"].value
+      : "no";
     const sessionAttributes =
       handlerInput.attributesManager.getSessionAttributes();
     if (continuePlaying == "yes" || chainedIntent === true) {
