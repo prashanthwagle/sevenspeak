@@ -100,6 +100,9 @@ const ContinueGameIntentHandler = {
         score = 0;
       }
 
+      if (chainedIntent)
+        speechText = `Welcome ${sessionAttributes.name}. ` + speechText;
+
       sessionAttributes.score = score;
       handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
       return handlerInput.responseBuilder
