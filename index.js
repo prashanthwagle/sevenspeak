@@ -74,7 +74,7 @@ const ContinueGameIntentHandler = {
   handle(handlerInput, chainedIntent = false) {
     const sessionAttributes =
       handlerInput.attributesManager.getSessionAttributes();
-    //if (chainedIntent === true) {
+
     let roll = Math.floor(Math.random() * 6) + 1;
     let score = sessionAttributes.score + roll;
 
@@ -86,7 +86,9 @@ const ContinueGameIntentHandler = {
     }
 
     if (chainedIntent)
-      speechText = `Welcome ${sessionAttributes.name}. ` + speechText;
+      speechText =
+        `Welcome ${sessionAttributes.name}. Thank you for telling me your name. Yay!. ` +
+        speechText;
 
     sessionAttributes.score = score;
     handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
@@ -110,9 +112,7 @@ const EndGameIntentHandler = {
     const sessionAttributes =
       handlerInput.attributesManager.getSessionAttributes();
     let speechText;
-    if (chainedIntent) {
-      sessionAttributes.score = 0;
-      sessionAttributes.highScore = sessionAttributes.score;
+    sessionAttributes.highScore = sessionAttributes.score;
       handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
       speechText =
         "Do you want to add your name to the high score list? If yes, please say 'add to high score'. Else say 'do not add to high score'";
