@@ -68,41 +68,30 @@ const ContinueGameIntentHandler = {
     );
   },
   handle(handlerInput, chainedIntent = false) {
-    const continuePlaying = handlerInput.requestEnvelope.request.intent.slots[
-      "YesOrNo"
-    ]
-      ? handlerInput.requestEnvelope.request.intent.slots["YesOrNo"].value
-      : "no";
     const sessionAttributes =
       handlerInput.attributesManager.getSessionAttributes();
-    if (continuePlaying == "yes" || chainedIntent === true) {
-      let roll = Math.floor(Math.random() * 6) + 1;
-      let score = sessionAttributes.score + roll;
+    //if (chainedIntent === true) {
+    let roll = Math.floor(Math.random() * 6) + 1;
+    let score = sessionAttributes.score + roll;
 
-      let speechText = `You rolled a ${roll}. Your score is now ${score}. Do you want to continue?`;
+    let speechText = `You rolled a ${roll}. Your score is now ${score}. Do you want to continue?`;
 
-      if (roll === 1) {
-        speechText = `You rolled a ${roll}. Your score is reset to 0. If you want to continue, say yes, else say no`;
-        score = 0;
-      }
-
-      if (chainedIntent)
-        speechText = `Welcome ${sessionAttributes.name}. ` + speechText;
-
-      sessionAttributes.score = score;
-      handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
-      return handlerInput.responseBuilder
-        .speak(speechText)
-        .reprompt("Do you want to continue playing?")
-        .getResponse();
+    if (roll === 1) {
+      speechText = `You rolled a ${roll}. Your score is reset to 0. If you want to continue, say yes, else say no`;
+      score = 0;
     }
-    console.log("Do not wanna continue");
-    if (sessionAttributes.gameOver) {
-      return EndGameIntentHandler.handle(handlerInput, false);
-    }
-    sessionAttributes.gameOver = true;
+
+    if (chainedIntent)
+      speechText = `Welcome ${sessionAttributes.name}. ` + speechText;
+
+    sessionAttributes.score = score;
     handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
-    return EndGameIntentHandler.handle(handlerInput, true);
+    return handlerInput.responseBuilder
+      .speak(speechText)
+      .reprompt(
+        "Do you want to continue playing? If you do, say continue, else say end game"
+      )
+      .getResponse();
   },
 };
 
