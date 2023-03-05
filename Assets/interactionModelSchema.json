@@ -21,7 +21,8 @@
                       "throw dice",
                       "my name is {name}",
                       "I am {name}",
-                      "Woohoo I am {name}"
+                      "Woohoo I am {name}",
+                      "Wohoo I am {name}"
                   ]
               },
               {
@@ -87,6 +88,10 @@
               {
                   "name": "SessionEndedRequest",
                   "slots": [],
+                  "samples": []
+              },
+              {
+                  "name": "AMAZON.NavigateHomeIntent",
                   "samples": []
               }
           ],
