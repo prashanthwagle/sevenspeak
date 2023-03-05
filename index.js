@@ -132,19 +132,21 @@ const AddScoreIntentHandler = {
     );
   },
   handle(handlerInput) {
+    const sessionAttributes =
+      handlerInput.attributesManager.getSessionAttributes();
     let speechOutput;
-    console.log(handlerInput.requestEnvelope.request.intent.slots);
-    console.log(
-      handlerInput.requestEnvelope.request.intent.slots["AddToHighScore"].value
-    );
+    // console.log(handlerInput.requestEnvelope.request.intent.slots);
+    // console.log(
+    //   handlerInput.requestEnvelope.request.intent.slots["AddToHighScore"].value
+    // );
     const addToHighScore =
       handlerInput.requestEnvelope.request.intent.slots["AddToHighScore"].value;
 
     if (addToHighScore == "do") {
-      const name = handlerInput.requestEnvelope.request.intent.slots.name.value;
-      const score =
+      const name = sessionAttributes.name;
+      const highScore =
         handlerInput.attributesManager.getSessionAttributes().highScore;
-      speechOutput = `Thanks for playing, ${name}. Your score of ${score} has been added to the high scores list.`;
+      speechOutput = `Thanks for playing, ${name}. Your score of ${highScore} has been added to the high scores list.`;
       // code to add name and score to high scores list in database goes here
     } else {
       speechOutput = "Thanks for playing. Hope I see you again!";
