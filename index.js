@@ -5,8 +5,9 @@ const Alexa = require("ask-sdk-core");
  * 1. Group the roll dice functionality to one function
  * 2. Do some extra credit task like exposing the API
  * 3. Remember the name between sessions, instead ask name at the beginning
- * 4.
- *
+ * 4. Need to Add DyDB code
+ * 5. Need to rewrite the prompts
+ *6
  *
  */
 
@@ -85,10 +86,18 @@ const ContinueGameIntentHandler = {
       score = 0;
     }
 
-    if (chainedIntent)
+    if (chainedIntent && !sessionAttributes.gameInProgress) {
       speechText =
         `Welcome ${sessionAttributes.name}. Thank you for telling me your name. Yay!. ` +
         speechText;
+      sessionAttributes.gameInProgress = true;
+    }
+
+    if (chainedIntent && sessionAttributes.gameInProgress) {
+      speechText =
+        `Oh, okay, is ${sessionAttributes.name} your name? Ugh, sorry, to err is to human. Let's reset your score ` +
+        speechText;
+    }
 
     sessionAttributes.score = score;
     handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
