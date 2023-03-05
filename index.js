@@ -269,6 +269,7 @@ exports.handler = async function (event, context) {
         ContinueGameIntentHandler,
         EndGameIntentHandler,
         HighScoresIntentHandler,
+        AddScoreIntentHandler,
         AMAZON_HelpIntentHandler,
         AMAZON_StopIntentHandler,
         AMAZON_CancelIntentHandler,
@@ -278,7 +279,9 @@ exports.handler = async function (event, context) {
       .addErrorHandlers(ErrorHandler)
       .create();
   }
+
   const response = await skill.invoke(event, context);
   console.log(`RESPONSE++++${JSON.stringify(response)}`);
+
   return response;
 };
