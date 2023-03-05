@@ -113,14 +113,14 @@ const EndGameIntentHandler = {
       handlerInput.attributesManager.getSessionAttributes();
     let speechText;
     sessionAttributes.highScore = sessionAttributes.score;
-      handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
-      speechText =
-        "Do you want to add your name to the high score list? If yes, please say 'add to high score'. Else say 'do not add to high score'";
-      return handlerInput.responseBuilder
-        .speak(speechText)
-        .reprompt(speechText)
-        .getResponse();
-    }
+    sessionAttributes.score = 0;
+    handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
+    speechText =
+      "Do you want to add your name to the high score list? If yes, please say 'add to high score'. Else say 'do not add to high score'";
+    return handlerInput.responseBuilder
+      .speak(speechText)
+      .reprompt(speechText)
+      .getResponse();
   },
 };
 
