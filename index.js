@@ -1,5 +1,15 @@
 const Alexa = require("ask-sdk-core");
 
+//TODO
+/**
+ * 1. Group the roll dice functionality to one function
+ * 2. Do some extra credit task like exposing the API
+ * 3. Remember the name between sessions, instead ask name at the beginning
+ * 4.
+ *
+ *
+ */
+
 const LaunchRequestHandler = {
   canHandle(handlerInput) {
     return handlerInput.requestEnvelope.request.type === "LaunchRequest";
