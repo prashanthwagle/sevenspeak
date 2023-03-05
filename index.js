@@ -30,6 +30,7 @@ const LaunchRequestHandler = {
       .getResponse();
   },
 };
+
 const RollDiceIntentHandler = {
   canHandle(handlerInput) {
     return (
@@ -40,7 +41,9 @@ const RollDiceIntentHandler = {
   handle(handlerInput) {
     const sessionAttributes =
       handlerInput.attributesManager.getSessionAttributes();
-    if (!sessionAttributes.name) {
+    const name = handlerInput.requestEnvelope.request.intent.slots.name.value;
+    console.log("IN RDIH", handlerInput.requestEnvelope.request.intent.slots);
+    if (!name) {
       speechText =
         "I love playing this game. What is your name? Else if you like to be anonymous, say guest";
       return handlerInput.responseBuilder
@@ -49,9 +52,9 @@ const RollDiceIntentHandler = {
         .getResponse();
     }
 
-    const name = handlerInput.requestEnvelope.request.intent.slots.name.value;
     if (name) sessionAttributes.name = name;
     else sessionAttributes.name = "guest";
+
     handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
     return ContinueGameIntentHandler.handle(handlerInput, true);
 
@@ -74,7 +77,6 @@ const RollDiceIntentHandler = {
     //   .getResponse();
   },
 };
-
 const ContinueGameIntentHandler = {
   canHandle(handlerInput) {
     return (
@@ -154,6 +156,7 @@ const EndGameIntentHandler = {
     return handlerInput.responseBuilder.speak(speechText).getResponse();
   },
 };
+
 const AddScoreIntentHandler = {
   canHandle(handlerInput) {
     return (
