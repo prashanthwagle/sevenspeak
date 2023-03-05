@@ -41,21 +41,25 @@ const RollDiceIntentHandler = {
   handle(handlerInput) {
     const sessionAttributes =
       handlerInput.attributesManager.getSessionAttributes();
+
     const name = handlerInput.requestEnvelope.request.intent.slots.name.value;
-    console.log("IN RDIH", handlerInput.requestEnvelope.request.intent.slots);
+
     if (!name) {
       speechText =
-        "I love playing this game. What is your name? Else if you like to be anonymous, say guest";
+        "In my tradition, we announce our name by saying Woo-hoo and then our name. Like this, 'Woo-hoo, I am Alexa'. Now it is your turn to tell your name according to my tradition!";
       return handlerInput.responseBuilder
         .speak(speechText)
         .reprompt(speechText)
         .getResponse();
     }
 
+    if (sessionAttributes.name) sessionAttributes.score = 0;
+
     if (name) sessionAttributes.name = name;
     else sessionAttributes.name = "guest";
 
     handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
+
     return ContinueGameIntentHandler.handle(handlerInput, true);
   },
 };
