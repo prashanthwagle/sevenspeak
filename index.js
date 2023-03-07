@@ -15,7 +15,7 @@ const dyClient = new AWS.DynamoDB.DocumentClient();
  *
  */
 
-const HSTABLE = "table-name";
+const TABLE_NAME = "HSTable";
 /*
 Partitionkey: Name
 Sortkey: Score 
@@ -68,7 +68,7 @@ const getExitNugget = () => {
 const addToHighScoreList = async (name, score) => {
   try {
     const params = {
-      TableName: HSTABLE,
+      TableName: TABLE_NAME,
       Item: {
         Name: name,
         Score: score,
@@ -84,7 +84,7 @@ const addToHighScoreList = async (name, score) => {
 const getTopScores = async () => {
   try {
     const params = {
-      TableName: HSTABLE,
+      TableName: TABLE_NAME,
       ExpressionAttributeNames: {
         "#PN": "Name",
       },
