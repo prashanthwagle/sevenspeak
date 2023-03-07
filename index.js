@@ -74,10 +74,17 @@ const addToHighScoreList = async (name, score) => {
         Score: score,
       },
     };
+    const result = await dyClient.put(params).promise();
+    console.log(result);
+    return (
       getPositiveNugget() + ". I have added your score to the high scores list!"
+    );
   } catch (err) {
     console.log(err);
+    return (
       getNegativeNugget() +
+      ". Unfortunately, there was some error in adding the score."
+    );
   }
 };
 
