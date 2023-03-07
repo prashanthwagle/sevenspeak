@@ -16,9 +16,8 @@ AWS Resources: AWS Lambda, Amazon DynamoDB, AWS CloudFormation
 # Key Product Highlights
 
 1. Variability in responses: The utterances of Alexa isn't fixed, instead it rotates between utterances. For eg. While greeting, it may say "hello" or "bonjour" or "yello" and so on. The same goes for most of the utterances.
-
-Goal Achieved: More human-like responses by Alexa which improves interactivity
-What could we do better: More Human-like responses could be achieved through Alexa Emotions (https://developer.amazon.com/en-US/blogs/alexa/alexa-skills-kit/2019/11/new-alexa-emotions-and-speaking-styles)
+   Goal Achieved: More human-like responses by Alexa which improves interactivity
+   What could we do better: More Human-like responses could be achieved through Alexa Emotions (https://developer.amazon.com/en-US/blogs/alexa/alexa-skills-kit/2019/11/new-alexa-emotions-and-speaking-styles)
 
 2. Humanlike interaction: The theme of Alexa is of a playful person who asks for the user's name upfront.
 
@@ -84,8 +83,6 @@ For more details, refer: https://developer.amazon.com/en-US/docs/alexa/alexa-ski
 
 9. Test the skill and Enjoy! Refer to the screenshots for sample interactions.
 
-### Screenshots
-
 ## roll-dice-restapi
 
 This component is optional. This is to deploy the RESTful API services which can be used to access the high scores posted by users.
@@ -105,6 +102,6 @@ Secondly, open template.yaml in this directory and search for the entry `Role`. 
 
 1. Install SAM CLI, and set up the AWS Access Key and Secrets
 2. In the directory RESTful\ API/ roll-dice-restapi, you can either simulate the API locally using `sam local start-api` (requires docker) or can deploy it to AWS as a cloudformation template using the command `sam deploy --guided` or simply `sam deploy`, if you want to proceed with the existing configuration
-3. Go to the API gateway console and test out the APIs. The API paths will be seen as follows
+3. Go to the API gateway console and test out the APIs. The API paths have been posted in the screenshots
 
-<screenshot here>
+# Screenshot
