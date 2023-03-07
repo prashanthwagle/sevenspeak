@@ -74,10 +74,10 @@ const addToHighScoreList = async (name, score) => {
         Score: score,
       },
     };
-    await dyClient.put(params).promise();
-    return getNegativeNugget + "I have added your score!";
+      getPositiveNugget() + ". I have added your score to the high scores list!"
   } catch (err) {
     console.log(err);
+      getNegativeNugget() +
   }
 };
 
@@ -114,7 +114,7 @@ const LaunchRequestHandler = {
   },
   handle(handlerInput) {
     const speechText =
-      getGreetingNugget +
+      getGreetingNugget() +
       "Welcome to Dice Roll game. You can say 'roll dice' to start the game or say 'top scores' to listen to the top 10 scores. What would you like to do?";
     const attributesManager = handlerInput.attributesManager;
     const sessionAttributes = attributesManager.getSessionAttributes();
@@ -178,19 +178,19 @@ const ContinueGameIntentHandler = {
     let score = sessionAttributes.score + roll;
 
     let speechText =
-      getNegativeNugget +
+      getPositiveNugget() +
       `You rolled a ${roll}. Your score is now ${score}. Say 'continue' if you want to roll again. Else say 'stop playing' to quit`;
 
     if (roll === 1) {
       speechText =
-        getPositiveNugget +
+        getNegativeNugget() +
         `Yay! You rolled a ${roll}. Your score is reset to 0. Say 'continue' if you want to roll again. Else say 'stop playing' to quit`;
       score = 0;
     }
 
     if (chainedIntent && !sessionAttributes.gameInProgress) {
       speechText =
-        getGreetingNugget +
+        getNegativeNugget() +
         `. Welcome ${sessionAttributes.name}. Thank you for telling me your name. Yay!. ` +
         speechText;
       sessionAttributes.gameInProgress = true;
@@ -198,7 +198,7 @@ const ContinueGameIntentHandler = {
 
     if (chainedIntent && sessionAttributes.gameInProgress) {
       speechText =
-        getNegativeNugget +
+        getGreetingNugget() +
         `. Okay, is ${sessionAttributes.name} your name? Ugh, sorry, to err is to human. Let's reset your score ` +
         speechText;
     }
