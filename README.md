@@ -74,7 +74,7 @@ I have explained the setup in brief. More details can be found at: https://devel
 2. Clone this repository to your computer
 3. Open the terminal, navigate to the directory where the repository has been cloned.
 4. Type `npm install`
-5. Compress the files in the directory as a zip archive except from the folders API Tests, Assets, RESTful API. This is to upload the code and dependencies to the lambda function that we created. Note: Make sure that the compression happens without any root directory, i.e., the final compressed zip should not have any root directory.
+5. Compress the files in the directory as a zip archive, which should include the files: index.js, package.json and the folder: node_modules. This is to upload the code and dependencies to the lambda function that we created. Note: Make sure that the compression happens without any root directory, i.e., the final compressed zip should not have any root directory.
 
 I have already compressed the files and the name of this archive is rest-api-core.zip. If you are using the archive that I have created, then the name of the DynamoDB should be `HSTable`. Else if you prefer to compress the files yourself, feel free to change the name of the DynamoDB table by changing the variable `TABLE_NAME` in index.js.
 
