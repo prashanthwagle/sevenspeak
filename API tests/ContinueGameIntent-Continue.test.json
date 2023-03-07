@@ -1,0 +1,22 @@
+{
+	"version": "1.0",
+	"session": {
+		"new": false,
+
+		"attributes": {
+			"score": 6,
+			"gameInProgress": true,
+			"name": "groot"
+		}
+	},
+	"request": {
+		"type": "IntentRequest",
+		"requestId": "amzn1.echo-api.request.308df0aa-bea0-4357-bf5d-77a46de8c766",
+		"locale": "en-US",
+		"timestamp": "2023-03-07T20:44:29Z",
+		"intent": {
+			"name": "ContinueGameIntent",
+			"confirmationStatus": "NONE"
+		}
+	}
+}

@@ -1,0 +1,35 @@
+{
+	"version": "1.0",
+	"session": {
+		"new": false,
+		"attributes": {
+			"score": 0
+		}
+	},
+	"request": {
+		"type": "IntentRequest",
+		"requestId": "amzn1.echo-api.request.912b6c12-4374-4a22-b51a-d6d3b9d08fd5",
+		"locale": "en-US",
+		"timestamp": "2023-03-07T20:43:02Z",
+		"intent": {
+			"name": "RollDiceIntent",
+			"confirmationStatus": "NONE",
+			"slots": {
+				"name": {
+					"name": "name",
+					"value": "groot",
+					"confirmationStatus": "NONE",
+					"source": "USER",
+					"slotValue": {
+						"type": "Simple",
+						"value": "groot"
+					}
+				},
+				"AddToHighScore": {
+					"name": "AddToHighScore",
+					"confirmationStatus": "NONE"
+				}
+			}
+		}
+	}
+}

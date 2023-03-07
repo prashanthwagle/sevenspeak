@@ -1,0 +1,28 @@
+{
+	"version": "1.0",
+	"session": {
+		"new": false,
+		"sessionId": "amzn1.echo-api.session.6b462dc8-e3df-4734-91ac-1774d6784f66",
+		"application": {
+			"applicationId": "amzn1.ask.skill.ecfbb2c8-2be7-4036-aab6-bd358d5881fc"
+		},
+		"attributes": {
+			"score": 11,
+			"gameInProgress": true,
+			"name": "groot"
+		},
+		"user": {
+			"userId": "amzn1.ask.account.AEM6SJNIFEEUPK4VC7OTQ6TE2G6GXXILGEYVA7NNM4Y7HH73PGOGR2KOGT47ZVEBLGEB5MCOYNESNISBWPLIWXZ2V7H36UMUMOMRKWYEOJUJYP2VOGD52KPBJKPSQVWMZXOGU52MXBIQAFZKRYXCY45AUQ7WXPWD7FWHEAXVQPFZOLESVQRVLD7IAWEGFVJXALIVX5FKQZ7DG7Y"
+		}
+	},
+	"request": {
+		"type": "IntentRequest",
+		"requestId": "amzn1.echo-api.request.14d64175-541e-4d6a-b677-f4c8fe87e0c8",
+		"locale": "en-US",
+		"timestamp": "2023-03-07T20:45:37Z",
+		"intent": {
+			"name": "EndGameIntent",
+			"confirmationStatus": "NONE"
+		}
+	}
+}

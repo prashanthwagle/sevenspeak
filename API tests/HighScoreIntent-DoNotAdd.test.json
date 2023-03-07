@@ -1,0 +1,86 @@
+{
+	"version": "1.0",
+	"session": {
+		"new": false,
+		"attributes": {
+			"score": 0,
+			"highScore": 4,
+			"gameInProgress": true,
+			"name": "groot"
+		}
+	},
+	"request": {
+		"type": "IntentRequest",
+		"requestId": "amzn1.echo-api.request.28dbba17-4412-4a27-b014-201995d76407",
+		"locale": "en-US",
+		"timestamp": "2023-03-07T20:51:31Z",
+		"intent": {
+			"name": "AddScoreIntent",
+			"confirmationStatus": "NONE",
+			"slots": {
+				"AddToHighScore": {
+					"name": "AddToHighScore",
+					"value": "do not",
+					"resolutions": {
+						"resolutionsPerAuthority": [
+							{
+								"authority": "amzn1.er-authority.echo-sdk.amzn1.ask.skill.ecfbb2c8-2be7-4036-aab6-bd358d5881fc.AddToHighScore",
+								"status": {
+									"code": "ER_SUCCESS_MATCH"
+								},
+								"values": [
+									{
+										"value": {
+											"name": "dont",
+											"id": "dont"
+										}
+									},
+									{
+										"value": {
+											"name": "do",
+											"id": "do"
+										}
+									}
+								]
+							}
+						]
+					},
+					"confirmationStatus": "NONE",
+					"source": "USER",
+					"slotValue": {
+						"type": "Simple",
+						"value": "do not",
+						"resolutions": {
+							"resolutionsPerAuthority": [
+								{
+									"authority": "amzn1.er-authority.echo-sdk.amzn1.ask.skill.ecfbb2c8-2be7-4036-aab6-bd358d5881fc.AddToHighScore",
+									"status": {
+										"code": "ER_SUCCESS_MATCH"
+									},
+									"values": [
+										{
+											"value": {
+												"name": "dont",
+												"id": "dont"
+											}
+										},
+										{
+											"value": {
+												"name": "do",
+												"id": "do"
+											}
+										}
+									]
+								}
+							]
+						}
+					}
+				},
+				"PlayerName": {
+					"name": "PlayerName",
+					"confirmationStatus": "NONE"
+				}
+			}
+		}
+	}
+}
