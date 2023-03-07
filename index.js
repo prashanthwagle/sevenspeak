@@ -94,24 +94,14 @@ const getTopScores = async () => {
     };
     const result = await dyClient.scan(params).promise();
 
-    // const params = {
-    //   TableName: HSTABLE,
-    //   KeyConditionExpression: "begins_with(#name, :name)",
-    //   ExpressionAttributeNames: {
-    //     "#name": "Name",
-    //   },
-    //   ExpressionAttributeValues: {
-    //     ":name": "A",
-    //   },
-    //   ScanIndexForward: false,
-    //   Limit: 10,
-    // };
+    result.Items.sort((a, b) => a.score - b.score);
 
-    // const result = await dyClient.query(params).promise();
     let message = "";
-    result.Items.forEach((item) => {
-      message += `${item.Name}: ${item.Score},`;
-    });
+
+    for (let i = 0; i < 10; i++) {
+      message += `${result.Items[i].Name}: ${esult.Items[i].Score},`;
+    }
+
     return message;
   } catch (err) {
     console.log(err);
