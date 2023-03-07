@@ -1,0 +1,44 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  roll-dice-restapi
+  SAM Template for roll-dice-restapi
+
+Globals:
+  Function:
+    Timeout: 15
+
+Resources:
+  APIHandler:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: api-handler/
+      Handler: app.lambdaHandler
+      Role: arn:aws:iam::524774370274:role/service-role/LambdaAlexaSkillRole
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      Events:
+        GetTopScores:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /scores/top10
+            Method: get
+        GetScoresByName:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /scores
+            Method: get
+        FallbackApiEvent:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: ANY
+
+Outputs:
+  APIGateway:
+    Description: "API Gateway endpoint URL as the backend for the Alexa Skill"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/volley/"
+  APIHandlerFunction:
+    Description: "API Handler"
+    Value: !GetAtt APIHandler.Arn
