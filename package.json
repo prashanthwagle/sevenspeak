@@ -9,6 +9,7 @@
   "author": "prashanth-wagle",
   "license": "ISC",
   "dependencies": {
-    "ask-sdk": "^2.12.1"
+    "ask-sdk": "^2.12.1",
+    "aws-sdk": "^2.1328.0"
   }
 }
