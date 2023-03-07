@@ -26,6 +26,45 @@ In certain cases where the composite key (name, highscore) exists in the dynamoD
 
 */
 
+const getRandomElement = (arr) => {
+  return arr[Math.floor(Math.random * arr.length)];
+};
+
+const getGreetingNugget = () => {
+  const greetings = [
+    "hello",
+    "howdy",
+    "yello",
+    "hey",
+    "bonjour",
+    "buenas dias",
+    "greetings",
+  ];
+  return getRandomElement(greetings);
+};
+
+const getPositiveNugget = () => {
+  const pNuggets = ["Hurray!", "Yay!", "Superb!", "Nice!", "Yippee!", "Great!"];
+  return getRandomElement(pNuggets);
+};
+
+const getNegativeNugget = () => {
+  const nNuggets = ["Oh no!", "Oops!", "Oh, Bummer!", "Ahh!", "Oopsie!"];
+  return getRandomElement(nNuggets);
+};
+
+const getExitNugget = () => {
+  const exits = [
+    "Bye!",
+    "See ya!",
+    "It was nice knowing you!",
+    "So long!",
+    "Take care!",
+  ];
+
+  return getRandomElement(exits);
+};
+
 const addToHighScoreList = async (name, score) => {
   try {
     const params = {
