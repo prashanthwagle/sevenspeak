@@ -100,12 +100,18 @@ const getTopScores = async () => {
     };
     const result = await dyClient.scan(params).promise();
 
-    result.Items.sort((a, b) => a.score - b.score);
+    console.log(result);
+
+    result.Items.sort((a, b) => b.Score - a.Score);
 
     let message = "";
 
-    for (let i = 0; i < 10; i++) {
-      message += `${result.Items[i].Name}: ${esult.Items[i].Score},`;
+    //console.log(result);
+
+    const limit = result.Items.length < 10 ? result.Items.length : 10;
+
+    for (let i = 0; i < limit; i++) {
+      message += `${result.Items[i].Name}: ${result.Items[i].Score}, `;
     }
 
     return message;
