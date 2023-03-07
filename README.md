@@ -5,7 +5,9 @@ This is my implementation of the dice roll game!
 # My Details
 
 Name: Prashanth P Wagle
+
 Email: frk5pa@virginia.edu
+
 Position: Software Engineering Intern (Summer 2023)
 
 # Tech Stack:
