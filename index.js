@@ -27,7 +27,7 @@ In certain cases where the composite key (name, highscore) exists in the dynamoD
 */
 
 const getRandomElement = (arr) => {
-  return arr[Math.floor(Math.random * arr.length)];
+  return arr[Math.floor(Math.random() * arr.length)];
 };
 
 const getGreetingNugget = () => {
