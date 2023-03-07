@@ -188,19 +188,19 @@ const ContinueGameIntentHandler = {
       score = 0;
     }
 
-    if (chainedIntent && !sessionAttributes.gameInProgress) {
+    if (chainedIntent && sessionAttributes.gameInProgress) {
       speechText =
         getNegativeNugget() +
+        `. Okay, is ${sessionAttributes.name} your name? Ugh, sorry, to err is to human. Let's reset your score ` +
+        speechText;
+    }
+
+    if (chainedIntent && !sessionAttributes.gameInProgress) {
+      speechText =
+        getGreetingNugget() +
         `. Welcome ${sessionAttributes.name}. Thank you for telling me your name. Yay!. ` +
         speechText;
       sessionAttributes.gameInProgress = true;
-    }
-
-    if (chainedIntent && sessionAttributes.gameInProgress) {
-      speechText =
-        getGreetingNugget() +
-        `. Okay, is ${sessionAttributes.name} your name? Ugh, sorry, to err is to human. Let's reset your score ` +
-        speechText;
     }
 
     sessionAttributes.score = score;
