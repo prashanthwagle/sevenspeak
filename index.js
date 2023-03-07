@@ -75,7 +75,7 @@ const addToHighScoreList = async (name, score) => {
       },
     };
     await dyClient.put(params).promise();
-    return "Woohoo! I have added your score!";
+    return getNegativeNugget + "I have added your score!";
   } catch (err) {
     console.log(err);
   }
@@ -89,7 +89,6 @@ const getTopScores = async () => {
         "#PN": "Name",
       },
       ProjectionExpression: "#PN, Score",
-      Limit: 10,
       ScanIndexForward: true,
     };
     const result = await dyClient.scan(params).promise();
@@ -105,7 +104,7 @@ const getTopScores = async () => {
     return message;
   } catch (err) {
     console.log(err);
-    return "Oopsy, something went wrong";
+    return getNegativeNugget + "something went wrong";
   }
 };
 
@@ -115,7 +114,8 @@ const LaunchRequestHandler = {
   },
   handle(handlerInput) {
     const speechText =
-      "Welcome to Dice Roll game. You can say roll dice to start the game or ask for the top 10 high scores. What would you like to do?";
+      getGreetingNugget +
+      "Welcome to Dice Roll game. You can say 'roll dice' to start the game or say 'top scores' to listen to the top 10 scores. What would you like to do?";
     const attributesManager = handlerInput.attributesManager;
     const sessionAttributes = attributesManager.getSessionAttributes();
 
@@ -145,7 +145,7 @@ const RollDiceIntentHandler = {
 
     if (!name) {
       speechText =
-        "In my tradition, we announce our name by saying Woo-hoo and then our name. Like this, 'Woo-hoo, I am Alexa'. Now it is your turn to tell your name according to my tradition!";
+        "Sweet. In my tradition, we announce our name by saying Woo-hoo and then our name. Like this, 'Woo-hoo, I am Alexa'. Now it is your turn to tell your name according to my tradition!";
       return handlerInput.responseBuilder
         .speak(speechText)
         .reprompt(speechText)
@@ -177,23 +177,29 @@ const ContinueGameIntentHandler = {
     let roll = Math.floor(Math.random() * 6) + 1;
     let score = sessionAttributes.score + roll;
 
-    let speechText = `You rolled a ${roll}. Your score is now ${score}. Do you want to continue?`;
+    let speechText =
+      getNegativeNugget +
+      `You rolled a ${roll}. Your score is now ${score}. Say 'continue' if you want to roll again. Else say 'stop playing' to quit`;
 
     if (roll === 1) {
-      speechText = `You rolled a ${roll}. Your score is reset to 0. If you want to continue, say yes, else say no`;
+      speechText =
+        getPositiveNugget +
+        `Yay! You rolled a ${roll}. Your score is reset to 0. Say 'continue' if you want to roll again. Else say 'stop playing' to quit`;
       score = 0;
     }
 
     if (chainedIntent && !sessionAttributes.gameInProgress) {
       speechText =
-        `Welcome ${sessionAttributes.name}. Thank you for telling me your name. Yay!. ` +
+        getGreetingNugget +
+        `. Welcome ${sessionAttributes.name}. Thank you for telling me your name. Yay!. ` +
         speechText;
       sessionAttributes.gameInProgress = true;
     }
 
     if (chainedIntent && sessionAttributes.gameInProgress) {
       speechText =
-        `Oh, okay, is ${sessionAttributes.name} your name? Ugh, sorry, to err is to human. Let's reset your score ` +
+        getNegativeNugget +
+        `. Okay, is ${sessionAttributes.name} your name? Ugh, sorry, to err is to human. Let's reset your score ` +
         speechText;
     }
 
@@ -201,9 +207,7 @@ const ContinueGameIntentHandler = {
     handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
     return handlerInput.responseBuilder
       .speak(speechText)
-      .reprompt(
-        "Do you want to continue playing? If you do, say continue, else say end game"
-      )
+      .reprompt(speechText)
       .getResponse();
   },
 };
@@ -223,7 +227,7 @@ const EndGameIntentHandler = {
     sessionAttributes.score = 0;
     handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
     speechText =
-      "Do you want to add your name to the high score list? If yes, please say 'add to high score'. Else say 'do not add to high score'";
+      "Do you want to add your name to the high score list? If yes, please say 'do add my score'. Else say 'do not add me to the high score list'";
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechText)
@@ -241,7 +245,7 @@ const AddScoreIntentHandler = {
   async handle(handlerInput) {
     const sessionAttributes =
       handlerInput.attributesManager.getSessionAttributes();
-    let speechOutput;
+    let speechText;
     // console.log(handlerInput.requestEnvelope.request.intent.slots);
     // console.log(
     //   handlerInput.requestEnvelope.request.intent.slots["AddToHighScore"].value
@@ -256,12 +260,15 @@ const AddScoreIntentHandler = {
 
       await addToHighScoreList(name, highScore);
 
-      speechOutput = `Thanks for playing, ${name}. Your score of ${highScore} has been added to the high scores list.`;
+      speechText =
+        getExitNugget() +
+        `. Thanks for playing, ${name}. Your score of ${highScore} has been added to the high scores list.`;
       // code to add name and score to high scores list in database goes here
     } else {
-      speechOutput = "Thanks for playing. Hope I see you again!";
+      speechText =
+        getExitNugget() + ". Thanks for playing. Hope I see you again!";
     }
-    return handlerInput.responseBuilder.speak(speechOutput).getResponse();
+    return handlerInput.responseBuilder.speak(speechText).getResponse();
   },
 };
 
@@ -274,9 +281,9 @@ const HighScoresIntentHandler = {
   },
   async handle(handlerInput) {
     const topScorers = await getTopScores();
-    const speechOutput =
+    const speechText =
       "Here are the list of the top 10 folks who kicked butt! " + topScorers;
-    return handlerInput.responseBuilder.speak(speechOutput).getResponse();
+    return handlerInput.responseBuilder.speak(speechText).getResponse();
   },
 };
 
@@ -288,10 +295,10 @@ const AMAZON_HelpIntentHandler = {
     );
   },
   handle(handlerInput) {
-    const speechOutput = "Welcome to the Roll Dice game! ---- ";
+    const speechText = "Glad that you asked me for help";
     return handlerInput.responseBuilder
-      .speak(speechOutput)
-      .reprompt(speechOutput)
+      .speak(speechText)
+      .reprompt(speechText)
       .getResponse();
   },
 };
@@ -307,11 +314,11 @@ const AMAZON_StopIntentHandler = {
     );
   },
   handle(handlerInput) {
-    const speechOutput =
+    const speechText =
       "Thanks for playing! Do you want to add your score to the high score list?";
     return handlerInput.responseBuilder
-      .speak(speechOutput)
-      .reprompt(speechOutput)
+      .speak(speechText)
+      .reprompt(speechText)
       .getResponse();
   },
 };
@@ -325,11 +332,11 @@ const AMAZON_FallbackIntentHandler = {
     );
   },
   handle(handlerInput) {
-    const speechOutput =
+    const speechText =
       "Oh shoot! I didn't quite get what you were trying to say. Would you be a peach and repeat that please? ";
     return handlerInput.responseBuilder
-      .speak(speechOutput)
-      .reprompt(speechOutput)
+      .speak(speechText)
+      .reprompt(speechText)
       .getResponse();
   },
 };
@@ -342,11 +349,11 @@ const AMAZON_CancelIntentHandler = {
     );
   },
   handle(handlerInput) {
-    const speechOutput =
+    const speechText =
       "Thanks for playing! Do you want to add your score to the high score list?";
     return handlerInput.responseBuilder
-      .speak(speechOutput)
-      .reprompt(speechOutput)
+      .speak(speechText)
+      .reprompt(speechText)
       .getResponse();
   },
 };
@@ -368,9 +375,9 @@ const ErrorHandler = {
   handle(handlerInput, error) {
     console.log(`Error handled: ${error.message}`);
 
-    const speechOutput =
-      "Sorry, I encountered an error. Please try again later.";
-    return handlerInput.responseBuilder.speak(speechOutput).getResponse();
+    const speechText =
+      "Sorry, I encountered an error. To err is to robot, ain't it? Please try again later.";
+    return handlerInput.responseBuilder.speak(speechText).getResponse();
   },
 };
 
