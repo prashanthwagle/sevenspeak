@@ -117,7 +117,7 @@ const getTopScores = async () => {
     return message;
   } catch (err) {
     console.log(err);
-    return getNegativeNugget + "something went wrong";
+    return ", something went wrong";
   }
 };
 
@@ -128,7 +128,7 @@ const LaunchRequestHandler = {
   handle(handlerInput) {
     const speechText =
       getGreetingNugget() +
-      "Welcome to Dice Roll game. You can say 'roll dice' to start the game or say 'top scores' to listen to the top 10 scores. What would you like to do?";
+      ". Welcome to Dice Roll game. You can say 'roll dice' to start the game or say 'top scores' to listen to the top 10 scores. What would you like to do?";
     const attributesManager = handlerInput.attributesManager;
     const sessionAttributes = attributesManager.getSessionAttributes();
 
@@ -192,12 +192,12 @@ const ContinueGameIntentHandler = {
 
     let speechText =
       getPositiveNugget() +
-      `You rolled a ${roll}. Your score is now ${score}. Say 'continue' if you want to roll again. Else say 'stop playing' to quit`;
+      `. You rolled a ${roll}. Your score is now ${score}. Say 'continue' if you want to roll again. Else say 'stop playing' to quit`;
 
     if (roll === 1) {
       speechText =
         getNegativeNugget() +
-        `Yay! You rolled a ${roll}. Your score is reset to 0. Say 'continue' if you want to roll again. Else say 'stop playing' to quit`;
+        `. You rolled a ${roll}. Your score is reset to 0. Say 'continue' if you want to roll again. Else say 'stop playing' to quit`;
       score = 0;
     }
 
@@ -271,11 +271,11 @@ const AddScoreIntentHandler = {
       const highScore =
         handlerInput.attributesManager.getSessionAttributes().highScore;
 
-      await addToHighScoreList(name, highScore);
+      const dbMessage = await addToHighScoreList(name, highScore);
 
       speechText =
         getExitNugget() +
-        `. Thanks for playing, ${name}. Your score of ${highScore} has been added to the high scores list.`;
+        `. Thanks for playing, ${name}. Your score is ${highScore}. ${dbMessage}.`;
       // code to add name and score to high scores list in database goes here
     } else {
       speechText =
@@ -295,7 +295,9 @@ const HighScoresIntentHandler = {
   async handle(handlerInput) {
     const topScorers = await getTopScores();
     const speechText =
-      "Here are the list of the top 10 folks who kicked butt! " + topScorers;
+      "Here are the list of the folks who kicked butt! " +
+      topScorers +
+      `. ${getExitNugget()}, hope we meet again!`;
     return handlerInput.responseBuilder.speak(speechText).getResponse();
   },
 };
