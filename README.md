@@ -19,6 +19,7 @@ AWS Resources: AWS Lambda, Amazon DynamoDB, AWS CloudFormation
 
 
    Goal Achieved: More human-like responses by Alexa which improves interactivity.
+   
    What could we do better: More Human-like responses could be achieved through Alexa Emotions (https://developer.amazon.com/en-US/blogs/alexa/alexa-skills-kit/2019/11/new-alexa-emotions-and-speaking-styles).
 
 2. Humanlike interaction: The theme of Alexa is of a playful person who asks for the user's name upfront.
