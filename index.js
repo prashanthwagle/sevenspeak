@@ -236,8 +236,8 @@ const EndGameIntentHandler = {
     const sessionAttributes =
       handlerInput.attributesManager.getSessionAttributes();
     let speechText;
-    sessionAttributes.highScore = sessionAttributes.score;
-    sessionAttributes.score = 0;
+    //sessionAttributes.highScore = sessionAttributes.score;
+    //sessionAttributes.score = 0;
     handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
     speechText =
       "Do you want to add your name to the high score list? If yes, please say 'do add my score'. Else say 'do not add me to the high score list'";
@@ -268,14 +268,13 @@ const AddScoreIntentHandler = {
 
     if (addToHighScore == "do") {
       const name = sessionAttributes.name;
-      const highScore =
-        handlerInput.attributesManager.getSessionAttributes().highScore;
+      const score = handlerInput.attributesManager.getSessionAttributes().score;
 
-      const dbMessage = await addToHighScoreList(name, highScore);
+      const dbMessage = await addToHighScoreList(name, score);
 
       speechText =
         getExitNugget() +
-        `. Thanks for playing, ${name}. Your score is ${highScore}. ${dbMessage}.`;
+        `. Thanks for playing, ${name}. Your score is ${score}. ${dbMessage}.`;
       // code to add name and score to high scores list in database goes here
     } else {
       speechText =
