@@ -1,4 +1,8 @@
 const Alexa = require("ask-sdk-core");
+const AWS = require("aws-sdk");
+
+AWS.config.update({ region: "us-east-1" });
+const dyClient = new AWS.DynamoDB.DocumentClient();
 
 //TODO
 /**
@@ -10,6 +14,71 @@ const Alexa = require("ask-sdk-core");
  *6
  *
  */
+
+const HSTABLE = "table-name";
+/*
+Partitionkey: Name
+Sortkey: Score 
+*/
+
+/*
+In certain cases where the composite key (name, highscore) exists in the dynamoDB database, I just do not update it
+
+*/
+
+const addToHighScoreList = async (name, score) => {
+  try {
+    const params = {
+      TableName: HSTABLE,
+      Item: {
+        Name: name,
+        Score: score,
+      },
+    };
+    await dyClient.put(params).promise();
+    return "Woohoo! I have added your score!";
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const getTopScores = async () => {
+  try {
+    const params = {
+      TableName: HSTABLE,
+      ExpressionAttributeNames: {
+        "#PN": "Name",
+      },
+      ProjectionExpression: "#PN, Score",
+      Limit: 10,
+      ScanIndexForward: true,
+    };
+    const result = await dyClient.scan(params).promise();
+
+    // const params = {
+    //   TableName: HSTABLE,
+    //   KeyConditionExpression: "begins_with(#name, :name)",
+    //   ExpressionAttributeNames: {
+    //     "#name": "Name",
+    //   },
+    //   ExpressionAttributeValues: {
+    //     ":name": "A",
+    //   },
+    //   ScanIndexForward: false,
+    //   Limit: 10,
+    // };
+
+    // const result = await dyClient.query(params).promise();
+    let message = "";
+    result.Items.forEach((item) => {
+      message += `${item.Name}: ${item.Score},`;
+    });
+    return message;
+  } catch (err) {
+    console.log(err);
+    return "Oopsy, something went wrong";
+  }
+};
 
 const LaunchRequestHandler = {
   canHandle(handlerInput) {
@@ -140,7 +209,7 @@ const AddScoreIntentHandler = {
       Alexa.getIntentName(handlerInput.requestEnvelope) === "AddScoreIntent"
     );
   },
-  handle(handlerInput) {
+  async handle(handlerInput) {
     const sessionAttributes =
       handlerInput.attributesManager.getSessionAttributes();
     let speechOutput;
@@ -155,6 +224,9 @@ const AddScoreIntentHandler = {
       const name = sessionAttributes.name;
       const highScore =
         handlerInput.attributesManager.getSessionAttributes().highScore;
+
+      await addToHighScoreList(name, highScore);
+
       speechOutput = `Thanks for playing, ${name}. Your score of ${highScore} has been added to the high scores list.`;
       // code to add name and score to high scores list in database goes here
     } else {
@@ -172,8 +244,9 @@ const HighScoresIntentHandler = {
     );
   },
   async handle(handlerInput) {
+    const topScorers = await getTopScores();
     const speechOutput =
-      "Here are the list of the top 10 folks who kicked butt!";
+      "Here are the list of the top 10 folks who kicked butt! " + topScorers;
     return handlerInput.responseBuilder.speak(speechOutput).getResponse();
   },
 };
