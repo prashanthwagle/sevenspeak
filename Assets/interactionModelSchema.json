@@ -57,6 +57,8 @@
                   ],
                   "samples": [
                       "{AddToHighScore} add my score",
+                      "{AddToHighScore} add to high score list",
+                      "{AddToHighScore} add to high scores",
                       "{AddToHighScore} add me to the high score list"
                   ]
               },
@@ -65,6 +67,7 @@
                   "slots": [],
                   "samples": [
                       "top scores",
+                      "top ten scores",
                       "high scores",
                       "leaderboard"
                   ]
