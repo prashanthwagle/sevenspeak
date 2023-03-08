@@ -51,11 +51,15 @@ Single Deployment Configuration also applies to the file Assets/interactionModel
 
 The SAM template is centered around a lambda function which responds to RESTful API request to expose the highscore data which is a component of the SAM template.
 
+4. HelpIntent and Fallback Intents
+
+The additional intents like Help and Fallback intents aid the user in navigating the game and also in the graceful response of the Alexa skill. Furthermore, session variables can be used to enhance the responses.
+
 # Project Overview
 
 My project has two parts: roll-dice-core and roll-dice-restapi.
 
-## Setup overview?
+## Setup overview
 
 roll-dice-core has to be setup in order to test the functionality of the alexa skill . After this, optionally we can set up roll-dice-restapi which exposes RESTful APIs for the users to access a subset of the functionality - retrieving high score data
 
@@ -84,7 +88,7 @@ I have explained the setup in brief. More details can be found at: https://devel
 
    I have already compressed the files and the name of this archive is rest-api-core.zip. If you are using the archive that I have created, then the name of the DynamoDB should be `HSTable`. Else if you prefer to compress the files yourself, feel free to change the name of the DynamoDB table by changing the variable `TABLE_NAME` in index.js.
 
-For more details, refer: https://developer.amazon.com/en-US/docs/alexa/alexa-skills-kit-sdk-for-nodejs/develop-your-first-skill.html.
+   For more details, refer: https://developer.amazon.com/en-US/docs/alexa/alexa-skills-kit-sdk-for-nodejs/develop-your-first-skill.html.
 
 6. Deploy this package to the Lambda function.
 
@@ -131,5 +135,5 @@ Secondly, open template.yaml in this directory and search for the entry `Role`. 
 ![Alt text](/Screenshots/3.png?raw=true "Playing the game")
 ![Alt text](/Screenshots/4.png?raw=true "Playing the game")
 ![Alt text](/Screenshots/5.png?raw=true "Getting")
-![Alt text](/Screenshots/6.png?raw=true "Interaction with the Alexa Skill")
-![Alt text](/Screenshots/7.png?raw=true "Interaction with the Alexa Skill")
+![Alt text](/Screenshots/6.png?raw=true "interactionModelSchema.json")
+![Alt text](/Screenshots/7.png?raw=true "API Routes")
