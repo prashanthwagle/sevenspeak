@@ -4,26 +4,12 @@ const AWS = require("aws-sdk");
 AWS.config.update({ region: "us-east-1" });
 const dyClient = new AWS.DynamoDB.DocumentClient();
 
-//TODO
-/**
- * 1. Group the roll dice functionality to one function
- * 2. Do some extra credit task like exposing the API
- * 3. Remember the name between sessions, instead ask name at the beginning
- * 4. Need to Add DyDB code
- * 5. Need to rewrite the prompts
- *6
- *
- */
-
 const TABLE_NAME = "HSTable";
 /*
+DynamoDB Table format:
 Partitionkey: Name
 Sortkey: Score 
-*/
-
-/*
-In certain cases where the composite key (name, highscore) exists in the dynamoDB database, I just do not update it
-
+In certain cases where the composite key (name, score) exists in the dynamoDB database, I just do not update it
 */
 
 const getRandomElement = (arr) => {
