@@ -131,5 +131,5 @@ Secondly, open template.yaml in this directory and search for the entry `Role`. 
 ![Alt text](/Screenshots/3.png?raw=true "Playing the game")
 ![Alt text](/Screenshots/4.png?raw=true "Playing the game")
 ![Alt text](/Screenshots/5.png?raw=true "Getting")
-![Alt text](/Screenshots/1.png?raw=true "Interaction with the Alexa Skill")
-![Alt text](/Screenshots/1.png?raw=true "Interaction with the Alexa Skill")
+![Alt text](/Screenshots/6.png?raw=true "Interaction with the Alexa Skill")
+![Alt text](/Screenshots/7.png?raw=true "Interaction with the Alexa Skill")
