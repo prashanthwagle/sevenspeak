@@ -63,7 +63,7 @@ My project has two parts: roll-dice-core and roll-dice-restapi.
 
 roll-dice-core has to be setup in order to test the functionality of the alexa skill . After this, optionally we can set up roll-dice-restapi which exposes RESTful APIs for the users to access a subset of the functionality - retrieving high score data
 
-## roll-dice core
+## Part-1: roll-dice core
 
 Firstly, roll-dice-core has to be setup
 
@@ -100,7 +100,7 @@ I have explained the setup in brief. More details can be found at: https://devel
 
 10. Test the skill and Enjoy! Refer to the screenshots for sample interactions.
 
-## roll-dice-restapi
+## (Optional) Part-2: roll-dice-restapi
 
 This component is optional. This is to deploy the RESTful API services which can be used to access the high scores posted by users.
 
