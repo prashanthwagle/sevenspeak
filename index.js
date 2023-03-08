@@ -32,13 +32,13 @@ const getRandomElement = (arr) => {
 
 const getGreetingNugget = () => {
   const greetings = [
-    "hello",
-    "howdy",
-    "yello",
-    "hey",
-    "bonjour",
-    "buenas dias",
-    "greetings",
+    "hello!",
+    "howdy!",
+    "yello!",
+    "hey!",
+    "bonjour!",
+    "buenas dias!",
+    "greetings!",
   ];
   return getRandomElement(greetings);
 };
@@ -77,13 +77,13 @@ const addToHighScoreList = async (name, score) => {
     const result = await dyClient.put(params).promise();
     console.log(result);
     return (
-      getPositiveNugget() + ". I have added your score to the high scores list!"
+      getPositiveNugget() + " I have added your score to the high scores list!"
     );
   } catch (err) {
     console.log(err);
     return (
       getNegativeNugget() +
-      ". Unfortunately, there was some error in adding the score."
+      " Unfortunately, there was some error in adding the score."
     );
   }
 };
@@ -128,7 +128,7 @@ const LaunchRequestHandler = {
   handle(handlerInput) {
     const speechText =
       getGreetingNugget() +
-      ". Welcome to Dice Roll game. You can say 'roll dice' to start the game or say 'top scores' to listen to the top 10 scores. What would you like to do?";
+      " Welcome to Dice Roll game. You can say 'roll dice' to start the game or say 'top scores' to listen to the top 10 scores. What would you like to do?";
     const attributesManager = handlerInput.attributesManager;
     const sessionAttributes = attributesManager.getSessionAttributes();
 
@@ -192,26 +192,26 @@ const ContinueGameIntentHandler = {
 
     let speechText =
       getPositiveNugget() +
-      `. You rolled a ${roll}. Your score is now ${score}. Say 'continue' if you want to roll again. Else say 'stop playing' to quit`;
+      ` You rolled a ${roll}. Your score is now ${score}. Say 'continue' if you want to roll again. Else say 'stop playing' to quit`;
 
     if (roll === 1) {
       speechText =
         getNegativeNugget() +
-        `. You rolled a ${roll}. Your score is reset to 0. Say 'continue' if you want to roll again. Else say 'stop playing' to quit`;
+        ` You rolled a ${roll}. Your score is reset to 0. Say 'continue' if you want to roll again. Else say 'stop playing' to quit`;
       score = 0;
     }
 
     if (chainedIntent && sessionAttributes.gameInProgress) {
       speechText =
         getNegativeNugget() +
-        `. Okay, is ${sessionAttributes.name} your name? Ugh, sorry, to err is to human. Let's reset your score ` +
+        ` Okay, is ${sessionAttributes.name} your name? Ugh, sorry, to err is to robot, ain't it? Let's reset your score ` +
         speechText;
     }
 
     if (chainedIntent && !sessionAttributes.gameInProgress) {
       speechText =
         getGreetingNugget() +
-        `. Welcome ${sessionAttributes.name}. Thank you for telling me your name. Yay!. ` +
+        ` Welcome ${sessionAttributes.name}. Thank you for telling me your name. ` +
         speechText;
       sessionAttributes.gameInProgress = true;
     }
@@ -240,7 +240,7 @@ const EndGameIntentHandler = {
     //sessionAttributes.score = 0;
     handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
     speechText =
-      "Do you want to add your name to the high score list? If yes, please say 'do add my score'. Else say 'do not add me to the high score list'";
+      "Do you want to add your name to the high score list? Please say 'do add my score' for adding you score to our list. Else say 'do not add me to the high score list'";
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechText)
@@ -274,11 +274,11 @@ const AddScoreIntentHandler = {
 
       speechText =
         getExitNugget() +
-        `. Thanks for playing, ${name}. Your score is ${score}. ${dbMessage}.`;
+        ` Thanks for playing, ${name}. Your score is ${score}. ${dbMessage}.`;
       // code to add name and score to high scores list in database goes here
     } else {
       speechText =
-        getExitNugget() + ". Thanks for playing. Hope I see you again!";
+        getExitNugget() + " Thanks for playing. Hope I see you again!";
     }
     return handlerInput.responseBuilder.speak(speechText).getResponse();
   },
@@ -296,7 +296,7 @@ const HighScoresIntentHandler = {
     const speechText =
       "Here are the list of the folks who kicked butt! " +
       topScorers +
-      `. ${getExitNugget()}, hope we meet again!`;
+      ` ${getExitNugget()}, hope we meet again!`;
     return handlerInput.responseBuilder.speak(speechText).getResponse();
   },
 };
