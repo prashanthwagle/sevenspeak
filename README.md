@@ -125,3 +125,11 @@ Secondly, open template.yaml in this directory and search for the entry `Role`. 
    The API paths have been posted in the final screenshot.
 
 # Screenshots
+
+![Alt text](/Screenshots/1.png?raw=true "Starting the game")
+![Alt text](/Screenshots/2.png?raw=true "Playing the game")
+![Alt text](/Screenshots/3.png?raw=true "Playing the game")
+![Alt text](/Screenshots/4.png?raw=true "Playing the game")
+![Alt text](/Screenshots/5.png?raw=true "Getting")
+![Alt text](/Screenshots/1.png?raw=true "Interaction with the Alexa Skill")
+![Alt text](/Screenshots/1.png?raw=true "Interaction with the Alexa Skill")
