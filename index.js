@@ -210,7 +210,6 @@ const ContinueGameIntentHandler = {
 
     if (chainedIntent && !sessionAttributes.gameInProgress) {
       speechText =
-        getGreetingNugget() +
         ` Welcome ${sessionAttributes.name}. Thank you for telling me your name. ` +
         speechText;
       sessionAttributes.gameInProgress = true;
