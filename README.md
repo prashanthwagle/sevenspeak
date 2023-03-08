@@ -108,6 +108,8 @@ I have explained the setup in brief. More details can be found at: https://devel
 
 10. Test the skill and Enjoy! Refer to the screenshots for sample interactions.
 
+Note: The dynamoDB entry consist of name and score as partition and sort keys respectively. In certain cases where the composite key (name, score) exists in the dynamoDB database, I overwrite the records and do not allow duplication.
+
 ## (Optional) Part-2: roll-dice-restapi
 
 This component is optional. This is to deploy the RESTful API services which can be used to access the high scores posted by users.
@@ -120,7 +122,7 @@ The output of the code is a cloudformation stack which consist of an API Gateway
 
 ### Overview
 
-At a high level, this part involves: installing AWS SAM CLI which deploys the code as a cloudformation stack consisting of an API Gateway and a Lambda function, setting up communication between AWS CLI and the account where the cloudformation stack is deployed
+At a high level, this part involves: installing AWS SAM CLI which deploys the code as a cloudformation stack consisting of an API Gateway and a Lambda function, setting up communication between AWS CLI and the account where the cloudformation stack is deployed.
 
 ### Goal
 
