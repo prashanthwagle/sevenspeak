@@ -39,21 +39,21 @@ AWS Resources: AWS Lambda, Amazon DynamoDB, AWS CloudFormation
 
 1. API Testing
 
-There are a few API tests for testing out the lambda function where the Alexa's backend would be hosted. However, we could make it more robust by adding an API Gateway trigger to the Lambda function and using an API testing platform like Postman to test the application in a better way with added benefits.
+   There are a few API tests for testing out the lambda function where the Alexa's backend would be hosted. However, we could make it more robust by adding an API Gateway trigger to the Lambda function and using an API testing platform like Postman to test the application in a better way with added benefits.
 
 2. Single Deployment Configuration
 
-The code can be potentially deployed as an AWS CloudFormation stack using AWS Serverless Application Model (SAM). One click deployment and update, and version control are the key highlights of using AWS SAM.
+   The code can be potentially deployed as an AWS CloudFormation stack using AWS Serverless Application Model (SAM). One click deployment and update, and version control are the key highlights of using AWS SAM.
 
-Single Deployment Configuration also applies to the file Assets/interactionModelSchema.json where all the interactions are written down in a single json file which can be plugged in and used.
+   Single Deployment Configuration also applies to the file Assets/interactionModelSchema.json where all the interactions are written down in a single json file which can be plugged in and used.
 
 3. RESTful API exposure
 
-The SAM template is centered around a lambda function which responds to RESTful API request to expose the highscore data which is a component of the SAM template.
+   The SAM template is centered around a lambda function which responds to RESTful API request to expose the highscore data which is a component of the SAM template.
 
 4. HelpIntent and Fallback Intents
 
-The additional intents like Help and Fallback intents aid the user in navigating the game and also in the graceful response of the Alexa skill. Furthermore, session variables can be used to enhance the responses.
+   The additional intents like Help and Fallback intents aid the user in navigating the game and also in the graceful response of the Alexa skill. Furthermore, session variables can be used to enhance the responses.
 
 # Project Overview
 
