@@ -5,7 +5,9 @@ This is my implementation of the dice roll game!
 # My Details
 
 Name: Prashanth P Wagle
+
 Email: frk5pa@virginia.edu
+
 Position: Software Engineering Intern (Summer 2023)
 
 # Tech Stack:
@@ -16,8 +18,11 @@ AWS Resources: AWS Lambda, Amazon DynamoDB, AWS CloudFormation
 # Key Product Highlights
 
 1. Variability in responses: The utterances of Alexa isn't fixed, instead it rotates between utterances. For eg. While greeting, it may say "hello" or "bonjour" or "yello" and so on. The same goes for most of the utterances.
-   Goal Achieved: More human-like responses by Alexa which improves interactivity
-   What could we do better: More Human-like responses could be achieved through Alexa Emotions (https://developer.amazon.com/en-US/blogs/alexa/alexa-skills-kit/2019/11/new-alexa-emotions-and-speaking-styles)
+
+
+   Goal Achieved: More human-like responses by Alexa which improves interactivity.
+   
+   What could we do better: More Human-like responses could be achieved through Alexa Emotions (https://developer.amazon.com/en-US/blogs/alexa/alexa-skills-kit/2019/11/new-alexa-emotions-and-speaking-styles).
 
 2. Humanlike interaction: The theme of Alexa is of a playful person who asks for the user's name upfront.
 
@@ -69,7 +74,7 @@ I have explained the setup in brief. More details can be found at: https://devel
 2. Clone this repository to your computer
 3. Open the terminal, navigate to the directory where the repository has been cloned.
 4. Type `npm install`
-5. Compress the files in the directory as a zip archive except from the folders API Tests, Assets, RESTful API. This is to upload the code and dependencies to the lambda function that we created. Note: Make sure that the compression happens without any root directory, i.e., the final compressed zip should not have any root directory.
+5. Compress the files in the directory as a zip archive, which should include the files: index.js, package.json and the folder: node_modules. This is to upload the code and dependencies to the lambda function that we created. Note: Make sure that the compression happens without any root directory, i.e., the final compressed zip should not have any root directory.
 
 I have already compressed the files and the name of this archive is rest-api-core.zip. If you are using the archive that I have created, then the name of the DynamoDB should be `HSTable`. Else if you prefer to compress the files yourself, feel free to change the name of the DynamoDB table by changing the variable `TABLE_NAME` in index.js.
 
