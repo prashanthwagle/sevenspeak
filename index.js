@@ -9,7 +9,8 @@ const TABLE_NAME = "HSTable";
 DynamoDB Table format:
 Partitionkey: Name
 Sortkey: Score 
-In certain cases where the composite key (name, score) exists in the dynamoDB database, I just do not update it
+In certain cases where the composite key (name, score) exists in the 
+dynamoDB database, I overwrite the records and do not allow duplication.
 */
 
 const getRandomElement = (arr) => {
