@@ -65,11 +65,19 @@ roll-dice-core has to be setup in order to test the functionality of the alexa s
 
 ## Part-1: roll-dice core
 
-Firstly, roll-dice-core has to be setup
+Firstly, roll-dice-core has to be setup.
+
+### Overview
+
+The goal of this part is to deploy the Amazon Alexa Skill. At a high level, this involves: creating the interaction model using Assets/interactionModel.json, creating a DynamoDB table, inputing the table name in the index.js code by changing TABLE_NAME variable, deploying the index.js and the associated dependencies as a zip archive to the lambda backend
+
+### Outcome
+
+Working AWS Skill with Lambda backend which stores the highscores in DynamoDB database.
 
 ### Files:
 
-index.js, Assets/interactionModelSchema.json
+index.js, package.json, Assets/interactionModelSchema.json
 
 ### Setup
 
@@ -92,7 +100,7 @@ I have explained the setup in brief. More details can be found at: https://devel
 
 6. Deploy this package to the Lambda function.
 
-7. Create a DynamoDB table with `Name` as the parition key and `Score` as the sort key. Make sure the name of this table is referenced in the index.js.
+7. Create a DynamoDB table with `Name` as the parition key and `Score` as the sort key. Make sure the name of this table is referenced in the index.js. Find the line `const TABLE_NAME = "HSTable";` in index.js and replace HSTable with the name of the table that you created.
 
 8. Go to the AWS Skills Dashboard and create the skill counterpart by following the instructions given in https://developer.amazon.com/en-US/docs/alexa/alexa-skills-kit-sdk-for-nodejs/develop-your-first-skill.html.
 
@@ -104,11 +112,19 @@ I have explained the setup in brief. More details can be found at: https://devel
 
 This component is optional. This is to deploy the RESTful API services which can be used to access the high scores posted by users.
 
-## Files
+### Files
 
 The files required to deploy this component is present in the RESTful API directory.
 
 The output of the code is a cloudformation stack which consist of an API Gateway which is passes the incoming requests to a Lambda function which interacts with the DynamoDB database to fetch the scores.
+
+### Overview
+
+At a high level, this part involves: installing AWS SAM CLI which deploys the code as a cloudformation stack consisting of an API Gateway and a Lambda function, setting up communication between AWS CLI and the account where the cloudformation stack is deployed
+
+### Goal
+
+The goal of deploying this cloudformation stack using AWS SAM is to create REST API endpoints which can access score-related data which is described further
 
 ### Setup
 
